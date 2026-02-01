@@ -2,7 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Dict
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 from src.schemas import ApplicationPayload
@@ -11,7 +11,8 @@ from src.explain import build_stage2_explanations
 
 
 def create_app() -> Flask:
-    app = Flask(__name__)
+    static_dir = Path(__file__).parent / "static"
+    app = Flask(__name__, static_folder=str(static_dir), static_url_path="/")
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -24,16 +25,9 @@ def create_app() -> Flask:
 
     @app.get("/api/metadata")
     def metadata():
-        
         return jsonify({
-            "stage1": {
-                "metrics": bundle.stage1_metrics,
-                "ui_metadata": bundle.stage1_ui_meta,
-            },
-            "stage2": {
-                "metrics": bundle.stage2_metrics,
-                "ui_metadata": bundle.stage2_ui_meta,
-            },
+            "stage1": {"metrics": bundle.stage1_metrics, "ui_metadata": bundle.stage1_ui_meta},
+            "stage2": {"metrics": bundle.stage2_metrics, "ui_metadata": bundle.stage2_ui_meta},
         })
 
     @app.post("/api/qualify")
@@ -55,10 +49,6 @@ def create_app() -> Flask:
             }
 
             s1 = predict_stage1(bundle, payload)
-
-            #Two-stage behavior:
-            #If Stage 1 says "refer", we can still compute Stage 2 risk,
-            #but mark that it's informational and user isn't "qualified" yet.
             s2 = predict_stage2(bundle, payload)
             exp = build_stage2_explanations(payload, s2)
 
@@ -68,9 +58,25 @@ def create_app() -> Flask:
                 "explanations": exp,
                 "disclaimer": "Educational demo. No PII collected. Not financial advice.",
             })
-
         except Exception as e:
             return jsonify({"error": str(e)}), 400
+
+    @app.get("/")
+    def serve_index():
+        index_path = static_dir / "index.html"
+        if index_path.exists():
+            return send_from_directory(static_dir, "index.html")
+        return (
+            "Frontend not built. Build frontend into server/static via Docker or `npm run build`.",
+            200,
+        )
+
+    @app.get("/<path:path>")
+    def serve_static_or_spa(path: str):
+        file_path = static_dir / path
+        if file_path.exists():
+            return send_from_directory(static_dir, path)
+        return send_from_directory(static_dir, "index.html")
 
     return app
 
