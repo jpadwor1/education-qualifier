@@ -1,0 +1,78 @@
+{
+  "stage": "stage2_default_risk",
+  "model": "hist_gradient_boosting",
+  "target_definition": {
+    "good": [
+      "Fully Paid",
+      "Does not meet the credit policy. Status:Fully Paid"
+    ],
+    "bad": [
+      "Charged Off",
+      "Default",
+      "Does not meet the credit policy. Status:Charged Off"
+    ],
+    "dropped": [
+      "Current",
+      "Late (16-30 days)",
+      "Late (31-120 days)",
+      "In Grace Period"
+    ]
+  },
+  "features": [
+    "loan_amount",
+    "term",
+    "purpose",
+    "annual_income",
+    "emp_length",
+    "dti",
+    "utilization",
+    "delinquencies",
+    "fico_est",
+    "fico_missing",
+    "emp_length_missing"
+  ],
+  "val_roc_auc": 0.678448382047025,
+  "val_pr_auc": 0.33953328641684877,
+  "test_roc_auc": 0.6795873126870401,
+  "test_pr_auc": 0.34120090585643514,
+  "threshold": 0.4465711966985147,
+  "band_policy": {
+    "risk_bands": {
+      "low": {
+        "max": 0.2560286357072218
+      },
+      "medium": {
+        "min": 0.2560286357072218,
+        "max": 0.4465711966985147
+      },
+      "high": {
+        "min": 0.4465711966985147
+      }
+    },
+    "how_chosen": {
+      "t_high": {
+        "min_precision": 0.5,
+        "val_precision": 0.5,
+        "val_recall": 0.08375408375408376,
+        "rule": "min_precision_max_recall"
+      },
+      "t_med": {
+        "min_precision": 0.35,
+        "val_precision": 0.3500009720629119,
+        "val_recall": 0.4455746955746956,
+        "rule": "min_precision_max_recall"
+      }
+    }
+  },
+  "confusion_matrix": [
+    [
+      158428,
+      3383
+    ],
+    [
+      37022,
+      3382
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n           0     0.8684    0.6497    0.7433    161811\n           1     0.3016    0.6058    0.4027     40404\n\n    accuracy                         0.6409    202215\n   macro avg     0.5850    0.6278    0.5730    202215\nweighted avg     0.7552    0.6409    0.6752    202215\n"
+}
