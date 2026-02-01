@@ -1,0 +1,54 @@
+{
+  "stage": "stage1_acceptance",
+  "numeric": {
+    "loan_amount": {
+      "min": 0.0,
+      "max": 300000.0,
+      "p1": 1000.0,
+      "p99": 40000.0,
+      "recommended_min": 2000.0,
+      "recommended_max": 30000.0
+    },
+    "emp_length": {
+      "min": 0.5,
+      "max": 10.0,
+      "p1": 0.5,
+      "p99": 10.0,
+      "recommended_min": 0.5,
+      "recommended_max": 5.0
+    },
+    "dti": {
+      "min": 0.0,
+      "max": 80.0,
+      "p1": 0.0,
+      "p99": 80.0,
+      "recommended_min": 1.01,
+      "recommended_max": 61.97
+    },
+    "fico_est": {
+      "min": 300.0,
+      "max": 850.0,
+      "p1": 501.0,
+      "p99": 771.0,
+      "recommended_min": 608.0,
+      "recommended_max": 687.0
+    },
+    "fico_missing": {
+      "min": 0.0,
+      "max": 1.0,
+      "p1": 0.0,
+      "p99": 1.0,
+      "recommended_min": 0.0,
+      "recommended_max": 1.0
+    },
+    "emp_length_missing": {
+      "min": 0.0,
+      "max": 1.0,
+      "p1": 0.0,
+      "p99": 1.0,
+      "recommended_min": 0.0,
+      "recommended_max": 0.0
+    }
+  },
+  "categorical": {}
+}

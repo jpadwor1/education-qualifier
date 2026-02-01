@@ -1,0 +1,37 @@
+{
+  "stage": "stage1_acceptance",
+  "model": "logistic_regression",
+  "features": [
+    "loan_amount",
+    "emp_length",
+    "dti",
+    "fico_est",
+    "fico_missing",
+    "emp_length_missing"
+  ],
+  "num_cols": [
+    "loan_amount",
+    "emp_length",
+    "dti",
+    "fico_est",
+    "fico_missing",
+    "emp_length_missing"
+  ],
+  "cat_cols": [],
+  "val_roc_auc": 0.9794713704105934,
+  "val_pr_auc": 0.7192873057937827,
+  "test_roc_auc": 0.9793928778881547,
+  "test_pr_auc": 0.7319421961384944,
+  "threshold": 0.8371134281309226,
+  "confusion_matrix": [
+    [
+      67182,
+      2149
+    ],
+    [
+      1294,
+      4375
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n           0     0.9811    0.9690    0.9750     69331\n           1     0.6706    0.7717    0.7176      5669\n\n    accuracy                         0.9541     75000\n   macro avg     0.8259    0.8704    0.8463     75000\nweighted avg     0.9576    0.9541    0.9556     75000\n"
+}
