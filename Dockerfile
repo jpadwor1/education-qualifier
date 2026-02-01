@@ -30,4 +30,5 @@ COPY --from=frontend-build /frontend/dist /app/server/static
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--chdir", "server", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["sh", "-c", "gunicorn --chdir server --bind 0.0.0.0:${PORT:-5000} app:app"]
+

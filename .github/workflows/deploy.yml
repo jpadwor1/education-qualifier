@@ -16,12 +16,6 @@ jobs:
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
 
-      - name: Verify Heroku CLI
-        run: heroku --version
-
-      - name: Install Heroku container plugin
-        run: heroku plugins:install @heroku-cli/plugin-container-registry || true
-
       - name: Login to Heroku Container Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -52,8 +46,12 @@ jobs:
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: heroku container:release web -a "$HEROKU_APP_NAME"
 
-      - name: Show app URL
+      - name: Smoke test
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: echo "Deployed: https://${HEROKU_APP_NAME}.herokuapp.com"
+        run: |
+          echo "Health check:"
+          curl -fsSL "https://${HEROKU_APP_NAME}.herokuapp.com/health"
+          echo ""
+          echo "UI check (expects HTML):"
+          curl -fsSL "https://${HEROKU_APP_NAME}.herokuapp.com/" | head -n 5

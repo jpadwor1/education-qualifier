@@ -73,9 +73,14 @@ def create_app() -> Flask:
 
     @app.get("/<path:path>")
     def serve_static_or_spa(path: str):
+        
+        if path.startswith("api/") or path == "health":
+            return jsonify({"error": "Not found"}), 404
+
         file_path = static_dir / path
         if file_path.exists():
             return send_from_directory(static_dir, path)
+
         return send_from_directory(static_dir, "index.html")
 
     return app
