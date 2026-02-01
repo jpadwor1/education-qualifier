@@ -2,7 +2,10 @@
 FROM node:20-alpine AS frontend-build
 WORKDIR /frontend
 
-COPY frontend/package*.json ./
+RUN echo "Build context contents:" && ls -la /
+
+COPY ./frontend/package.json ./package.json
+COPY ./frontend/package-lock.json ./package-lock.json
 RUN npm install
 
 COPY frontend/ ./
