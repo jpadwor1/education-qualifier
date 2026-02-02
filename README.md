@@ -442,7 +442,7 @@ server {
 
 ### 7) Pull and run
 
-If your Docker Hub image is private:
+Docker Hub Link: https://hub.docker.com/r/jpadworski/credit-qualifier
 
 ```bash
 docker login
