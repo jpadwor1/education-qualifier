@@ -143,7 +143,7 @@ Because rejected/accepted schemas differ, features are aligned via canonical tra
 ├── Procfile                       # Heroku process definition (gunicorn)
 └── README.md
 
----
+```
 
 ## Local Setup
 
