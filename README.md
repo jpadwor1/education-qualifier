@@ -126,20 +126,21 @@ Because rejected/accepted schemas differ, features are aligned via canonical tra
 
 ## Repository Structure
 
+`````text
 .
 ├── .github/
-│ └── workflows/ # CI/CD pipeline (GitHub Actions)
-├── frontend/ # Vite + React + TS + Tailwind UI
-├── ml/ # Notebooks, training code, experiments
-├── server/ # Flask API, model loading, prediction logic
-│ ├── artifacts/ # model.pkl + metrics.json + ui_metadata.json
-│ ├── src/
-│ │ ├── predict.py # load_models, predict_stage1/2
-│ │ ├── schemas.py # request payload validation
-│ │ └── explain.py # explanations for outputs
-│ └── app.py # Flask app + API routes + SPA hosting
-├── Dockerfile # Multi-stage Docker build (frontend + server)
-├── Procfile # Heroku process definition (gunicorn)
+│   └── workflows/                 # CI/CD pipeline (GitHub Actions)
+├── frontend/                      # Vite + React + TypeScript + Tailwind UI
+├── ml/                            # Notebooks, training code, experiments
+├── server/                        # Flask API, model loading, prediction logic
+│   ├── artifacts/                 # model.pkl + metrics.json + ui_metadata.json
+│   ├── src/
+│   │   ├── predict.py             # load_models, predict_stage1/2
+│   │   ├── schemas.py             # request payload validation
+│   │   └── explain.py             # explanations for outputs
+│   └── app.py                     # Flask app + API routes + SPA hosting
+├── Dockerfile                     # Multi-stage Docker build (frontend + server)
+├── Procfile                       # Heroku process definition (gunicorn)
 └── README.md
 
 ---
@@ -216,7 +217,7 @@ The Flask app:
 ```bash
 cd server
 python app.py
-````
+`````
 
 ### Verify endpoints
 
